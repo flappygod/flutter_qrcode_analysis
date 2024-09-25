@@ -1,5 +1,8 @@
 import Flutter
 import UIKit
+import AVFoundation
+import Vision
+
 
 public class FlutterQrcodeAnalysisPlugin: NSObject, FlutterPlugin {
     public static func register(with registrar: FlutterPluginRegistrar) {
@@ -47,8 +50,9 @@ public class FlutterQrcodeAnalysisPlugin: NSObject, FlutterPlugin {
             return qrCodeMessage
         }
         
-        // 2. 如果没有二维码，检查条形码
-        if let barcodeMessage = detectBarcode(in: ciImage) {
+        let uiImage = UIImage(cgImage: cgImage)
+        //2. 如果没有二维码，检查条形码
+        if let barcodeMessage = detectBarcodes(in: uiImage) {
             return barcodeMessage
         }
         
@@ -74,20 +78,34 @@ public class FlutterQrcodeAnalysisPlugin: NSObject, FlutterPlugin {
         return nil
     }
     
-    ///解析条形码数据
-    private func detectBarcode(in ciImage: CIImage) -> String? {
-        // 使用 AVFoundation 来检测条形码
-        let detector = CIDetector(ofType: CIDetectorTypeRectangle, context: nil, options: [CIDetectorAccuracy: CIDetectorAccuracyHigh])
-        
-        guard let features = detector?.features(in: ciImage) else {
+    ///解析条形码
+    func detectBarcodes(in image: UIImage) -> String? {
+        guard let cgImage = image.cgImage else {
             return nil
         }
-        for feature in features {
-            if let barcodeFeature = feature as? CIQRCodeFeature, let messageString = barcodeFeature.messageString {
-                return messageString
+        var detectedBarcodes = [String]()
+        let request = VNDetectBarcodesRequest { request, error in
+            if let error = error {
+                print("Error detecting barcodes: \(error)")
+                return
+            }
+            guard let results = request.results as? [VNBarcodeObservation] else {
+                return
+            }
+            for result in results {
+                if let payloadString = result.payloadStringValue {
+                    detectedBarcodes.append(payloadString)
+                }
             }
         }
-        return nil
+        let handler = VNImageRequestHandler(cgImage: cgImage, options: [:])
+        do {
+            try handler.perform([request])
+        } catch {
+            print("Failed to perform barcode detection: \(error)")
+        }
+        // 返回第一个检测到的条形码或 nil
+        return detectedBarcodes.first
     }
     
 }
