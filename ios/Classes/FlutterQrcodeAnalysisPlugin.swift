@@ -18,11 +18,15 @@ public class FlutterQrcodeAnalysisPlugin: NSObject, FlutterPlugin {
                 result(FlutterError(code: "INVALID_ARGUMENT", message: "File path is missing or invalid", details: nil))
                 return
             }
-            ///解析
-            if let qrCodeData = messageFromImage(path: filePath) {
-                result(qrCodeData)
-            } else {
-                result(nil)
+            DispatchQueue.global(qos: .userInitiated).async {
+                let qrCodeData = self.messageFromImage(path: filePath)
+                DispatchQueue.main.async {
+                    if let data = qrCodeData {
+                        result(data)
+                    } else {
+                        result(FlutterError(code: "DECODE_FAILED", message: "Failed to decode image.", details: nil))
+                    }
+                }
             }
         default:
             result(FlutterMethodNotImplemented)
