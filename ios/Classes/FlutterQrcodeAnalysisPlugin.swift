@@ -24,7 +24,7 @@ public class FlutterQrcodeAnalysisPlugin: NSObject, FlutterPlugin {
                     if let data = qrCodeData {
                         result(data)
                     } else {
-                        result(FlutterError(code: "DECODE_FAILED", message: "Failed to decode image.", details: nil))
+                        result(nil)
                     }
                 }
             }
