@@ -1,7 +1,7 @@
 name: flutter_qrcode_analysis
 description: "A project can decode qrcode image to data str"
-version: 1.0.0
-homepage:
+version: 1.0.1
+homepage: https://github.com/flappygod/flutter_qrcode_analysis.git
 
 environment:
   sdk: '>=3.4.4 <4.0.0'

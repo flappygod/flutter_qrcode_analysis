@@ -1,3 +1,3 @@
-## 1.0.0
+## 1.0.1
 
-* Add project to github, add qrcode and barcode decode 
+* Add home page to pubspec.yaml.
