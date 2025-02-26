@@ -9,6 +9,7 @@ Pod::Spec.new do |s|
   s.description      = <<-DESC
 This project is designed to decode QR code images into data strings.
 It supports both Android and iOS platforms and also includes functionality for barcode decoding.
+The Android implementation is based on the ZXing library, while the iOS implementation leverages AVFoundation for efficient and accurate decoding.
                        DESC
   s.homepage         = 'http://example.com'
   s.license          = { :file => '../LICENSE' }
