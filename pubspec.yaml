@@ -2,7 +2,7 @@ name: flutter_qrcode_analysis
 description: "This project is designed to decode QR code images into data strings.
 It supports both Android and iOS platforms and also includes functionality for barcode decoding.
 The Android implementation is based on the ZXing library, while the iOS implementation leverages AVFoundation for efficient and accurate decoding."
-version: 1.0.1
+version: 1.0.2
 homepage: https://github.com/flappygod/flutter_qrcode_analysis.git
 
 environment:

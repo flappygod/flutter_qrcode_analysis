@@ -1,3 +1,3 @@
-## 1.0.1
+## 1.0.2
 
-* Add home page to pubspec.yaml.
+* Add description for this package.
