@@ -7,7 +7,8 @@ Pod::Spec.new do |s|
   s.version          = '0.0.1'
   s.summary          = 'A project can decode qrcode image to data str'
   s.description      = <<-DESC
-A project can decode qrcode image to data str
+This project is designed to decode QR code images into data strings.
+It supports both Android and iOS platforms and also includes functionality for barcode decoding.
                        DESC
   s.homepage         = 'http://example.com'
   s.license          = { :file => '../LICENSE' }
